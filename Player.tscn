@@ -1,0 +1,132 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://player.dae" type="PackedScene" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://items/turkey_NW.png" type="Texture" id=3]
+[ext_resource path="res://items/pizza_NW.png" type="Texture" id=4]
+[ext_resource path="res://items/chinese_SE.png" type="Texture" id=5]
+[ext_resource path="res://items/meatCooked_SE.png" type="Texture" id=6]
+[ext_resource path="res://items/potStew_NE.png" type="Texture" id=7]
+[ext_resource path="res://items/carton_NE.png" type="Texture" id=8]
+[ext_resource path="res://Zone.tscn" type="PackedScene" id=9]
+
+[sub_resource type="CapsuleShape" id=1]
+margin = 0.4
+radius = 0.25
+height = 0.6
+
+[sub_resource type="CylinderShape" id=2]
+radius = 0.5
+height = 1.0
+
+[sub_resource type="CylinderMesh" id=3]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.8
+
+[node name="Player" type="KinematicBody"]
+collision_layer = 2
+collision_mask = 29
+script = ExtResource( 2 )
+
+[node name="Feet" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.55, 0.022 )
+shape = SubResource( 1 )
+
+[node name="Body" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10903, 0 )
+shape = SubResource( 2 )
+
+[node name="Pivot" type="Spatial" parent="."]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
+
+[node name="Model" parent="Pivot" instance=ExtResource( 1 )]
+transform = Transform( 0.0499503, 5.42374e-05, 0.00222732, -5.83438e-05, 0.0499999, 9.09036e-05, -0.00222722, -9.34118e-05, 0.0499503, 0.128, 0, -0.131898 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Pivot"]
+transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 0.000396858, 0.0660613, -0.0316561 )
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="CameraPivot" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.53674e-07 )
+
+[node name="Camera" type="Camera" parent="CameraPivot"]
+transform = Transform( 1, 0, 0, 0, 0.984807, 0.173648, 0, -0.173648, 0.984807, 0, 5, 12 )
+fov = 38.9
+
+[node name="CameraTarget" type="Spatial" parent="."]
+
+[node name="CameraTween" type="Tween" parent="."]
+
+[node name="GUI" type="Node2D" parent="."]
+
+[node name="Drowned" parent="GUI" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
+text = "This trolley cannot swim!
+
+To restart:
+keyboard - R
+gamepad - Start"
+
+[node name="Completed" parent="GUI" instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
+text = "Thanks for delivering all the food! You deserve a tip.
+
+For previous world:
+keyboard - P |  gamepad - L1
+
+For next world: 
+keyboard - N | gamepad - R1"
+
+[node name="Items" type="Node2D" parent="GUI"]
+position = Vector2( 944, 0 )
+
+[node name="Turkey" type="Sprite" parent="GUI/Items"]
+visible = false
+modulate = Color( 1, 1, 1, 0.4 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 3 )
+
+[node name="Soup" type="Sprite" parent="GUI/Items"]
+visible = false
+modulate = Color( 1, 1, 1, 0.4 )
+position = Vector2( 0, 80 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 7 )
+
+[node name="Pizza" type="Sprite" parent="GUI/Items"]
+visible = false
+modulate = Color( 1, 1, 1, 0.4 )
+position = Vector2( 0, 160 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+
+[node name="Steak" type="Sprite" parent="GUI/Items"]
+visible = false
+modulate = Color( 1, 1, 1, 0.4 )
+position = Vector2( 0, 240 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 6 )
+
+[node name="Noodles" type="Sprite" parent="GUI/Items"]
+visible = false
+modulate = Color( 1, 1, 1, 0.4 )
+position = Vector2( 0, 320 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 5 )
+
+[node name="Milk" type="Sprite" parent="GUI/Items"]
+visible = false
+modulate = Color( 1, 1, 1, 0.4 )
+position = Vector2( 0, 400 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 8 )
+
+[node name="Debug" type="Label" parent="GUI"]
+visible = false
+margin_right = 576.0
+margin_bottom = 376.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

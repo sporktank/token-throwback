@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://TilesMeshLibrary.tres" type="MeshLibrary" id=2]
+[ext_resource path="res://Zone.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Goal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Item.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=6]
+
+[node name="World" type="Spatial"]
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource( 2 )
+cell_size = Vector3( 1, 1, 1 )
+data = {
+"cells": PoolIntArray( 0, 0, 655363, 1, 0, 655363, 2, 0, 655363, 3, 0, 655363, 65535, 0, 655363, 327688, 0, 1441795, 327688, 1, 3, 327688, 2, 3, 524288, 2, 1441795, 524289, 2, 1441795, 524290, 2, 1441795, 393222, 3, 3, 393223, 3, 3, 393224, 3, 1441795, 458757, 3, 1441795, 524288, 3, 1441795, 524289, 3, 1441795, 524290, 3, 1441795, 524288, 4, 1441795, 524289, 4, 1441795, 524290, 4, 1441795, 0, 65526, 3, 1, 65526, 3, 2, 65526, 3, 65537, 65526, 1441792, 262151, 65526, 1048579, 262152, 65526, 1048579, 262153, 65526, 1048579, 0, 65527, 3, 1, 65527, 3, 2, 65527, 3, 3, 65527, 1048580, 65539, 65527, 1048581, 65540, 65527, 1048580, 131076, 65527, 1048581, 131077, 65527, 1048580, 196613, 65527, 1048581, 196614, 65527, 1048580, 262150, 65527, 1048581, 262151, 65527, 1048579, 262152, 65527, 1048579, 262153, 65527, 1048579, 327689, 65527, 655360, 0, 65528, 3, 1, 65528, 3, 2, 65528, 3, 262151, 65528, 1048579, 262152, 65528, 1048579, 262153, 65528, 1048579, 1, 65529, 655370, 1, 65530, 655370, 1, 65531, 655370, 262151, 65531, 1441795, 262152, 65531, 1441795, 262153, 65531, 1441795, 1, 65532, 655370, 262151, 65532, 1441795, 262152, 65532, 1441795, 262153, 65532, 1441795, 0, 65533, 3, 1, 65533, 3, 2, 65533, 3, 3, 65533, 655363, 65535, 65533, 655363, 262151, 65533, 1441795, 262152, 65533, 1441795, 262153, 65533, 1441795, 0, 65534, 3, 1, 65534, 655363, 2, 65534, 3, 3, 65534, 655363, 65535, 65534, 655363, 262152, 65534, 3, 0, 65535, 3, 1, 65535, 3, 2, 65535, 3, 3, 65535, 655363, 65535, 65535, 655363, 262152, 65535, 3 )
+}
+__meta__ = {
+"_editor_clip_": 0,
+"_editor_floor_": Vector3( 0, 6, -9 )
+}
+
+[node name="WelcomeZone" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.5, -1.5 )
+text = "Welcome to Take-away Trolley!
+
+To move:
+keyboard - arrow keys
+gamepad - left stick
+
+Collect food and bring it back to the flag.."
+
+[node name="CameraZone" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 2, -8.5 )
+text = "To rotate the camera:
+keyboard - Z/X
+gamepad - right stick"
+
+[node name="JumpZone" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 6, -8.5 )
+text = "To jump!:
+keyboard - space
+gamepad - A"
+
+[node name="TurkeyZone" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 10, 3.5 )
+text = "Now be a good trolley and take the turkey back to the flag."
+
+[node name="Item1" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 9.25, 3.5 )
+
+[node name="Goal" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1, 0.5 )
+collision_mask = 1
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, -0.52197, 1.5886, 0.47214 )
+[connection signal="entered" from="Goal" to="Player" method="_on_Goal_entered"]
